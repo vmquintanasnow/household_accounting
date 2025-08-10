@@ -1,0 +1,51 @@
+name: home_economy_app
+# description: A simple desktop app to keep the home economy (income, expense and saving goals).
+# # The following defines the version and build number for your application.
+# # A version number is three numbers separated by dots, like 1.2.43
+# # followed by an optional build number separated by a +.
+# # Both the version and the builder number may be overridden in flutter
+# # build by specifying --build-name and --build-number, respectively.
+# # In Android, build-name is used as versionName while build-number used as versionCode.
+# # Read more about versioning at semver.org.
+# version: 1.0.0+1
+
+# environment:
+#   sdk: ">=3.3.0 <4.0.0"
+#   flutter: ">=3.13.0"
+
+# dependencies:
+#   flutter:
+#     sdk: flutter
+#   # For storing persistent key‑value data across sessions.
+#   shared_preferences: ^2.2.2
+#   # For date and currency formatting.
+#   intl: ^0.20.2
+#   flutter_localizations:
+#     sdk: flutter
+
+# dev_dependencies:
+#   flutter_test:
+#     sdk: flutter
+
+# flutter:
+#   uses-material-design: true
+
+
+# ////////////////
+description: Simple household accounting with Fluent 2
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fluent_ui: ^4.8.6
+  provider: ^6.0.5
+  path_provider: ^2.1.2
+  intl: ^0.20.2
+  uuid: ^4.4.0
+  flutter_acrylic: ^1.1.4
+  system_theme: ^3.1.2
+
+flutter:
+  uses-material-design: true
