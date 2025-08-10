@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:home_economy_app/logic/logic.dart';
+import 'package:home_economy_app/domain/models.dart';
 import 'package:home_economy_app/ui/dialogs/dialogs.dart';
 import 'package:home_economy_app/ui/widgets/comand_bar.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +24,22 @@ class DashboardPage extends StatelessWidget {
             MonthPickerChip(
               month: m,
               onChanged: (d) => ledger.setCurrentMonth(d),
+            ),
+            const SizedBox(width: 16),
+            // Session Switcher
+            ComboBox<SessionType>(
+              value: ledger.currentSession,
+              items: SessionType.values
+                  .map((s) => ComboBoxItem(
+                        value: s,
+                        child: Text(s.name[0].toUpperCase() + s.name.substring(1)),
+                      ))
+                  .toList(),
+              onChanged: (s) {
+                if (s != null) ledger.setCurrentSession(s);
+              },
+              placeholder: const Text('Selecciona sesión'),
+              isExpanded: false,
             ),
             const Spacer(),
             Expanded(child: ActionsBar()),

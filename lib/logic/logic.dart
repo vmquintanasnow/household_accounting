@@ -7,6 +7,8 @@ import 'package:uuid/uuid.dart';
 // Ledger (State + Logic)
 // ----------------------------
 class Ledger extends ChangeNotifier {
+  // Session cursor
+  SessionType currentSession = SessionType.joint;
   Ledger(this._store);
 
   final LocalJsonStore _store;
@@ -67,6 +69,7 @@ class Ledger extends ChangeNotifier {
     required DateTime date,
     String? categoryId,
     String? note,
+    SessionType? session,
   }) {
     transactions.add(TransactionItem(
       id: _uuid.v4(),
@@ -74,6 +77,7 @@ class Ledger extends ChangeNotifier {
       amount: amount,
       date: date,
       categoryId: categoryId,
+      session: session ?? currentSession,
       note: note,
     ));
     _persist();
@@ -86,6 +90,7 @@ class Ledger extends ChangeNotifier {
     required DateTime date,
     String? categoryId,
     String? note,
+    SessionType? session,
   }) {
     final idx = transactions.indexWhere((t) => t.id == tx.id);
     if (idx == -1) return;
@@ -95,6 +100,7 @@ class Ledger extends ChangeNotifier {
       amount: amount,
       date: date,
       categoryId: categoryId,
+      session: session ?? tx.session,
       note: note,
     );
     _persist();
@@ -108,10 +114,15 @@ class Ledger extends ChangeNotifier {
   }
 
   // Helpers
-  Iterable<TransactionItem> byMonth(DateTime m) sync* {
+  Iterable<TransactionItem> byMonth(DateTime m, {SessionType? session}) sync* {
+    final sess = session ?? currentSession;
     for (final t in transactions) {
-      if (t.date.year == m.year && t.date.month == m.month) yield t;
+      if (t.date.year == m.year && t.date.month == m.month && t.session == sess) yield t;
     }
+  }
+  void setCurrentSession(SessionType s) {
+    currentSession = s;
+    notifyListeners();
   }
 
   double monthlyIncome(DateTime m) => byMonth(m)

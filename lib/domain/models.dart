@@ -2,6 +2,15 @@
 // Models
 // ----------------------------
 enum TxType { income, expense }
+enum SessionType { him, her, joint }
+
+extension SessionTypeX on SessionType{
+  String get name => switch(this){
+    SessionType.him => 'Luis',
+    SessionType.her => 'Ailyn',
+    SessionType.joint =>  'Conjunta',
+  };
+}
 
 class Category {
   Category({required this.id, required this.name, this.color});
@@ -21,6 +30,7 @@ class TransactionItem {
     required this.amount,
     required this.date,
     required this.categoryId,
+    required this.session,
     this.note,
   });
 
@@ -29,6 +39,7 @@ class TransactionItem {
   double amount;
   DateTime date;
   String? categoryId;
+  SessionType session;
   String? note;
 
   factory TransactionItem.fromJson(Map<String, dynamic> j) => TransactionItem(
@@ -37,6 +48,9 @@ class TransactionItem {
         amount: (j['amount'] as num).toDouble(),
         date: DateTime.parse(j['date']),
         categoryId: j['categoryId'],
+        session: j['session'] != null
+            ? SessionType.values.firstWhere((e) => e.name == j['session'])
+            : SessionType.joint,
         note: j['note'],
       );
 
@@ -46,6 +60,7 @@ class TransactionItem {
         'amount': amount,
         'date': date.toIso8601String(),
         'categoryId': categoryId,
+        'session': session.name,
         'note': note,
       };
 }
