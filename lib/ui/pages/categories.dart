@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:home_economy_app/logic/logic.dart';
-import 'package:home_economy_app/ui/dialogs.dart';
+import 'package:home_economy_app/ui/dialogs/dialogs.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -10,11 +10,11 @@ class CategoriesPage extends StatelessWidget {
     final ledger = context.watch<Ledger>();
     return ScaffoldPage(
       header: PageHeader(
-        title: const Text('Categories'),
+        title: const Text('Categorías'),
         commandBar: CommandBar(primaryItems: [
           CommandBarButton(
             icon: const Icon(FluentIcons.add),
-            label: const Text('Add Category'),
+            label: const Text('Add Categoría'),
             onPressed: () => showDialog(
                 context: context, builder: (_) => const AddCategoryDialog()),
           ),

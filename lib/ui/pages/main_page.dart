@@ -47,7 +47,7 @@ class _ShellState extends State<Shell> {
       ),
       PaneItem(
         icon: const Icon(FluentIcons.chart),
-        title: const Text('Historico'),
+        title: const Text('Histórico'),
         body: const HistoryPage(),
       ),
       PaneItemSeparator(),

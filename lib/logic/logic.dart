@@ -80,6 +80,27 @@ class Ledger extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editTx({
+    required TransactionItem tx,
+    required double amount,
+    required DateTime date,
+    String? categoryId,
+    String? note,
+  }) {
+    final idx = transactions.indexWhere((t) => t.id == tx.id);
+    if (idx == -1) return;
+    transactions[idx] = TransactionItem(
+      id: tx.id,
+      type: tx.type,
+      amount: amount,
+      date: date,
+      categoryId: categoryId,
+      note: note,
+    );
+    _persist();
+    notifyListeners();
+  }
+
   void deleteTx(TransactionItem t) {
     transactions.removeWhere((x) => x.id == t.id);
     _persist();

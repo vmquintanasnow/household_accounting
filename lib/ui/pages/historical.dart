@@ -28,15 +28,15 @@ class HistoryPage extends StatelessWidget {
                   const SizedBox(width: 16),
                   Expanded(
                       child:
-                          Text('Income: ${f.format(ledger.monthlyIncome(m))}')),
+                          Text('Ingresos: ${f.format(ledger.monthlyIncome(m))}')),
                   Expanded(
                       child: Text(
-                          'Expenses: ${f.format(ledger.monthlyExpense(m))}')),
+                          'Gastos: ${f.format(ledger.monthlyExpense(m))}')),
                   Expanded(
                       child: Text(
-                          'Savings: ${f.format(ledger.monthlySavings(m))}')),
+                          'Diferencia: ${f.format(ledger.monthlySavings(m))}')),
                   HyperlinkButton(
-                    child: const Text('Open'),
+                    child: const Text('Abrir'),
                     onPressed: () => ledger.setCurrentMonth(m),
                   ),
                 ],

@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:home_economy_app/logic/logic.dart';
-import 'package:home_economy_app/ui/dialogs.dart';
+import 'package:home_economy_app/ui/dialogs/dialogs.dart';
 import 'package:home_economy_app/ui/widgets/comand_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +18,7 @@ class DashboardPage extends StatelessWidget {
       header: PageHeader(
         title: Row(
           children: [
-            const Text('Dashboard'),
+            const Text('Transacciones'),
             const SizedBox(width: 16),
             MonthPickerChip(
               month: m,
@@ -38,12 +38,6 @@ class DashboardPage extends StatelessWidget {
                 Colors.successPrimaryColor),
             _StatCard('Gastos', f.format(ledger.monthlyExpense(m)),
                 Colors.warningPrimaryColor),
-            _StatCard(
-                'Ahorros',
-                f.format(ledger.monthlySavings(m)),
-                ledger.monthlySavings(m) >= 0
-                    ? Colors.successPrimaryColor
-                    : Colors.errorPrimaryColor),
           ],
         ),
         const SizedBox(height: 12),
@@ -90,39 +84,13 @@ class _MonthTransactionsPreview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Recent Transactions',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const Text(
+            'Transacciones',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 8),
-          if (monthTx.isEmpty)
-            const Text('No transactions yet for this month.'),
-          for (final t in monthTx.take(8)) TxTile(t),
-          if (monthTx.length > 8)
-            Align(
-              alignment: Alignment.centerRight,
-              child: HyperlinkButton(
-                child: const Text('View all'),
-                onPressed: () {
-                  // Use a callback or state management to change the selected index.
-                  // For example, if using Provider for the selected index:
-                  // context.read<SelectedIndexProvider>().setIndex(1);
-                  // Or, if you have access to the parent Shell's state, call a method or use a callback.
-                  // As a workaround, you can show a message:
-                  showDialog(
-                    context: context,
-                    builder: (context) => ContentDialog(
-                      title: const Text('Navigation'),
-                      content: const Text(
-                          'Please switch to the Transactions tab using the navigation pane.'),
-                      actions: [
-                        Button(
-                            child: const Text('OK'),
-                            onPressed: () => Navigator.pop(context)),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+          if (monthTx.isEmpty) const Text('No tienes transacciones'),
+          for (final t in monthTx) TxTile(t),
         ],
       ),
     );
